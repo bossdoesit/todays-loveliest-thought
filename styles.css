@@ -25,7 +25,9 @@
 .journal-coming h3{font-size:1.8rem;margin-bottom:0}
 .journal-coming p:not(.eyebrow){font-size:.9rem;line-height:1.7;margin-bottom:9px;color:#6d5345}
 .journal-coming .availability{font-style:italic}
-@media(max-width:960px){.journal-invitation{gap:32px}.journal-signup{padding-left:22px;padding-right:22px}}
-@media(max-width:760px){.journal-invitation{grid-template-columns:1fr;gap:36px;margin-top:34px}.journal-introduction{padding-top:0}.journal-preview img{width:min(100%,258px)}.journal-description{max-width:420px}.journal-signup{width:100%;max-width:540px;margin:auto;padding:30px 24px 10px}.journal-signup-frame{height:540px}.journal-coming{grid-template-columns:1fr;gap:19px;margin-top:38px;padding-top:28px}.journal-coming h3{font-size:1.7rem}}
-@media(max-width:480px){.journal-signup{padding:27px 18px 8px}.journal-signup-frame{height:600px}.journal-preview{padding-left:12px;padding-right:12px}}
-@media(max-width:360px){.journal-signup{padding-left:12px;padding-right:12px}.journal-signup-frame{height:660px}}
+@media(max-width:1100px){.journal-signup-frame{height:600px}}
+@media(max-width:960px){.journal-invitation{gap:32px}.journal-signup{padding-left:22px;padding-right:22px}.journal-signup-frame{height:640px}}
+@media(max-width:760px){.journal-invitation{grid-template-columns:1fr;gap:36px;margin-top:34px}.journal-introduction{padding-top:0}.journal-preview img{width:min(100%,258px)}.journal-description{max-width:420px}.journal-signup{width:100%;max-width:540px;margin:auto;padding:30px 24px 10px}.journal-signup-frame{height:560px}.journal-coming{grid-template-columns:1fr;gap:19px;margin-top:38px;padding-top:28px}.journal-coming h3{font-size:1.7rem}}
+@media(max-width:580px){.journal-signup-frame{height:620px}}
+@media(max-width:480px){.journal-signup{padding:27px 18px 8px}.journal-signup-frame{height:660px}.journal-preview{padding-left:12px;padding-right:12px}}
+@media(max-width:360px){.journal-signup{padding-left:12px;padding-right:12px}.journal-signup-frame{height:740px}}
