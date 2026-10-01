@@ -8,7 +8,7 @@ Open `index.html`, or run `python3 -m http.server 8000` from this folder.
 
 ## Contents
 
-- `index.html`: public page, private reflection prompts, and free-journal signup link.
+- `index.html`: public page, private reflection prompts, and inline free-journal signup.
 - `styles.css`: responsive brand styling.
 - `script.js`: local reflection download and clear controls.
 - `assets/`: supplied artwork, video, sharing image, and icons.
@@ -17,14 +17,16 @@ Open `index.html`, or run `python3 -m http.server 8000` from this folder.
 
 The reflection form uses only local browser code. Writing is held in the open page and can be downloaded as a text file; it is not submitted, stored in browser storage, or sent to HighLevel. No HighLevel tracking or form-embed script runs on this page. Keep this privacy boundary when making changes.
 
-The separate journal signup opens in a new tab so visitors do not lose an in-progress reflection. It collects optional first name, required email, and required consent in HighLevel. It does not collect journal entries or prayers.
+The journal signup is embedded in a cross-origin iframe. The HighLevel code runs inside that frame, not in the parent page, so it cannot read private reflections. It collects optional first name, required email, and required consent. It does not collect journal entries or prayers. Keep third-party embed and tracking scripts out of the parent page.
 
 ## Free journal signup — October 1, 2026
 
-The free journal card links to the tested HighLevel form:
+The branded journal section embeds the tested HighLevel form:
 https://api.leadconnectorhq.com/widget/form/mIYaYT9u8Yje8MxcDUWg
 
 After submitting, visitors receive a confirmation with the free PDF download. End-to-end signup and PDF download were confirmed on October 1, 2026; receipt of the signup was verified in HighLevel.
+
+The journal cover is rendered from the actual printable. Form colors, typography, and spacing are maintained in HighLevel’s Custom CSS. The iframe has a responsive reserved height and allows scrolling if validation or accessibility settings require more space; no external resize script is loaded into the page.
 
 The four-email welcome workflow is saved in Draft and does not send yet. Publishing the website link does not activate that workflow. Contacts captured while it is in Draft will need an intentional, consent-respecting enrollment plan when email sending launches.
 
