@@ -22,3 +22,20 @@ document.querySelector('#clear').addEventListener('click', () => {
   if ([...form.querySelectorAll('input, textarea')].some(field => field.value.trim()) && !confirm('Clear this reflection? Download a copy first if you want to keep it.')) return;
   form.reset(); status.textContent = 'Your reflection has been cleared.';
 });
+
+const video = document.querySelector('#hero-video');
+const videoControl = document.querySelector('#video-control');
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+function syncVideoLabel() { videoControl.textContent = video.ended ? 'Replay animation' : video.paused ? 'Play animation' : 'Pause animation'; }
+video.addEventListener('play', syncVideoLabel);
+video.addEventListener('pause', syncVideoLabel);
+video.addEventListener('ended', syncVideoLabel);
+video.addEventListener('error', () => { videoControl.hidden = true; });
+videoControl.addEventListener('click', () => {
+  if (video.paused || video.ended) {
+    if (video.ended) video.currentTime = 0;
+    video.play().catch(() => { syncVideoLabel(); });
+  } else video.pause();
+});
+if (!motionPreference.matches) video.play().catch(syncVideoLabel);
+motionPreference.addEventListener('change', event => { if (event.matches) video.pause(); });

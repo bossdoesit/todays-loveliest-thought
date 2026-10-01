@@ -38,3 +38,13 @@ Current journals are accurately marked as in development. There is no fake signu
 Edit headings/copy in `index.html`. Palette variables are at the top of `styles.css`. Replace images in `assets/` with matching filenames or update their HTML references. The title wordmark is supplied artwork; this package does not include or claim a licensed Angle Estarossa font file.
 
 No repository has been created or pushed, and this package has not been publicly deployed.
+
+## Favicon
+
+The supplied sunflower, butterfly, and crescent artwork is used intact for the multi-size ICO, PNG browser icons, and Apple touch icon. Only resizing/format conversion was applied.
+
+## Animated hero and sharing card
+
+The supplied sunset video is encoded as a silent, fast-start H.264 MP4. It plays once with no loop, keeps the ending frame, and has a pause/play/replay control. Reduced-motion users see the final-frame poster until choosing play. Autoplay refusal leaves an explicit play control. The 16:9 composition is preserved on mobile.
+
+`assets/og-image.jpg` is the 1200 x 630 sharing card. Open Graph and X metadata use the purchased domain. These image URLs become reachable only once the site is hosted and the domain is connected. No public deployment has occurred.
