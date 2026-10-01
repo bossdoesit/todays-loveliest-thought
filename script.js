@@ -24,18 +24,6 @@ document.querySelector('#clear').addEventListener('click', () => {
 });
 
 const video = document.querySelector('#hero-video');
-const videoControl = document.querySelector('#video-control');
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-function syncVideoLabel() { videoControl.textContent = video.ended ? 'Replay animation' : video.paused ? 'Play animation' : 'Pause animation'; }
-video.addEventListener('play', syncVideoLabel);
-video.addEventListener('pause', syncVideoLabel);
-video.addEventListener('ended', syncVideoLabel);
-video.addEventListener('error', () => { videoControl.hidden = true; });
-videoControl.addEventListener('click', () => {
-  if (video.paused || video.ended) {
-    if (video.ended) video.currentTime = 0;
-    video.play().catch(() => { syncVideoLabel(); });
-  } else video.pause();
-});
-if (!motionPreference.matches) video.play().catch(syncVideoLabel);
+if (!motionPreference.matches) video.play().catch(() => {});
 motionPreference.addEventListener('change', event => { if (event.matches) video.pause(); });
