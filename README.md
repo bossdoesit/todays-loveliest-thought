@@ -48,3 +48,5 @@ The supplied sunflower, butterfly, and crescent artwork is used intact for the m
 The supplied sunset video is encoded as a silent, fast-start H.264 MP4. It plays once with no loop, keeps the ending frame, with no visible playback button. Reduced-motion users see the final-frame poster. Autoplay refusal also leaves the poster visible. The 16:9 composition is preserved on mobile.
 
 `assets/og-image.jpg` is the 1200 x 630 sharing card. Open Graph and X metadata use the purchased domain. These image URLs become reachable only once the site is hosted and the domain is connected. No public deployment has occurred.
+
+Hero updated October 1, 2026 using the new 15-second video supplied without the watermark. Playback remains muted, once, without a visible button. Poster refreshed from the new ending.
