@@ -10,7 +10,7 @@ Open `index.html`, or run `python3 -m http.server 8000` from this folder.
 
 - `index.html`: public page, private reflection prompts, and inline free-journal signup.
 - `styles.css`: responsive brand styling.
-- `script.js`: local reflection download and clear controls.
+- `script.js`: local reflection controls and a restricted iframe height listener.
 - `assets/`: supplied artwork, video, sharing image, and icons.
 
 ## Private reflections
@@ -26,7 +26,9 @@ https://api.leadconnectorhq.com/widget/form/mIYaYT9u8Yje8MxcDUWg
 
 After submitting, visitors receive a confirmation with the free PDF download. End-to-end signup and PDF download were confirmed on October 1, 2026; receipt of the signup was verified in HighLevel.
 
-The journal cover is rendered from the actual printable. Form colors, typography, and spacing are maintained in HighLevel’s Custom CSS. The iframe has a responsive reserved height and allows scrolling if validation or accessibility settings require more space; no external resize script is loaded into the page.
+The journal cover is rendered from the actual printable. Form colors, typography, and spacing are maintained in HighLevel’s Custom CSS; the form and enclosing panel use the page's warm cream, `#fff8ee`. The iframe starts with a responsive reserved height, then follows HighLevel's iFrameSizer height messages so the confirmation does not leave a large empty panel. Scrolling remains available for validation and accessibility settings.
+
+The local height listener checks both the exact iframe window and its `https://api.leadconnectorhq.com` origin, then accepts only bounded numeric heights for that frame ID. It sends only the resize initialization string. It does not relay URL parameters, collect fields, retain contact data, or load HighLevel's parent-page embed/tracking script. The protocol was checked against the official `https://link.msgsndr.com/js/form_embed.js` on October 1, 2026. Keep this boundary when maintaining the integration.
 
 The four-email welcome workflow is saved in Draft and does not send yet. Publishing the website link does not activate that workflow. Contacts captured while it is in Draft will need an intentional, consent-respecting enrollment plan when email sending launches.
 
