@@ -10,14 +10,16 @@ Open `index.html`, or run `python3 -m http.server 8000` from this folder.
 
 - `index.html`: public page, private reflection prompts, and inline free-journal signup.
 - `styles.css`: responsive brand styling.
-- `script.js`: local reflection controls and a restricted iframe height listener.
+- `script.js`: video controls and restricted iframe height listeners.
+- `reflection.html`: isolated private reflection form, local download, and clearing controls.
+- `analytics.js`: production-only GA4 configuration.
 - `assets/`: supplied artwork, video, sharing image, and icons.
 
 ## Private reflections
 
-The reflection form uses only local browser code. Writing is held in the open page and can be downloaded as a text file; it is not submitted, stored in browser storage, or sent to HighLevel. No HighLevel tracking or form-embed script runs on this page. Keep this privacy boundary when making changes.
+The reflection form uses only local browser code inside `reflection.html`, embedded with `sandbox="allow-scripts allow-downloads"`. **Never add `allow-same-origin` or third-party scripts to that frame.** Its opaque origin prevents parent-page Analytics and HighLevel from reading the writing. Its Content Security Policy blocks network connections and form submissions. Writing is held in the open frame and can be downloaded as a text file; it is not submitted, stored in browser storage, or sent to HighLevel or Analytics. Only a bounded numeric layout height is posted to the parent. Keep this privacy boundary when making changes.
 
-The journal signup is embedded in a cross-origin iframe. The HighLevel code runs inside that frame, not in the parent page, so it cannot read private reflections. It collects optional first name, required email, and required consent. It does not collect journal entries or prayers. Keep third-party embed and tracking scripts out of the parent page.
+The journal signup is embedded in a cross-origin iframe. The HighLevel code runs inside that frame, not in the parent page, so it cannot read private reflections. It collects optional first name, required email, and required consent. It does not collect journal entries or prayers. Keep HighLevel embed/tracking scripts out of the parent page. GA4 on the parent is permitted only while the private reflection frame remains isolated as described above.
 
 ## Free journal signup — October 1, 2026
 
@@ -51,3 +53,13 @@ The sunflower, butterfly, and crescent artwork is used intact for the favicon si
 The October 1, 2026 supplied 15-second video plays once, muted, without a visible playback button. The updated ending supplies the poster. Reduced-motion preferences and autoplay refusal leave the poster visible. The 16:9 composition is preserved on mobile.
 
 `assets/og-image.jpg` is the 1200 × 630 sharing card. Canonical, Open Graph, sitemap, and robots settings use the live domain.
+
+## Google Analytics — October 2, 2026
+
+GA4 measurement ID `G-79B3TMK0CM` comes from Daniel's web-stream setup screenshots (stream `15941366799`). `analytics.js` initializes one direct Google tag only on `todaysloveliestthought.com` and `www.todaysloveliestthought.com`; local and Cloudflare preview hosts do not report traffic. There is no GTM container or duplicate GA4 tag.
+
+Google signals and advertising personalization are disabled. The reported page URL and referrer omit query strings and fragments. Source, medium, campaign, content, and term can be supplied only as short URL-safe UTM labels; do not put personal information into campaign labels. No reflection fields, contact fields, user IDs, enhanced conversion data, or custom lead events are sent by our code. The homepage's Privacy disclosure describes the data flow.
+
+Google's enhanced measurement settings remain controlled in GA4. Both forms are isolated from the parent: the private journal uses an opaque sandbox origin, and the HighLevel signup uses its existing cross-origin iframe. Consequently, a GA4 page tag does not establish confirmed signup tracking. Configure a separate confirmed-success integration before treating `generate_lead` as a key event; never count a journal link click as a successful signup.
+
+Installation and collection are distinct checks. Use the stream's Test installation button and GA4 Realtime/DebugView to confirm downstream receipt. Do not describe the data-collection banner as resolved until Google actually confirms it. Standard report population can lag. No email workflow or social campaign is activated by this site change.

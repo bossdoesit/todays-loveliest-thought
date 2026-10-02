@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Private reflection | Today's Loveliest Thought</title>
+<style>:root{--ivory:#fff8ee;--paper:#fffdf9;--cocoa:#3d241b;--copper:#6f4635;--turquoise:#326e70;--blush:#f4e6dc;--line:#dfcfc0}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--paper);color:var(--cocoa);font:1rem/1.7 Arial,sans-serif}body{display:flow-root}p{margin-top:0}button,input,textarea{font:inherit;touch-action:manipulation}:focus-visible{outline:3px solid var(--turquoise);outline-offset:3px}label{display:block;font-size:.95rem;margin:17px 0 8px}textarea,input{display:block;width:100%;border:1px solid #d6c7b9;background:var(--paper);border-radius:3px;padding:12px;color:var(--cocoa);font-size:1rem;resize:vertical}textarea::placeholder,input::placeholder{color:#76665c;opacity:1}.journal-actions{display:flex;gap:18px;align-items:center;margin-top:24px;flex-wrap:wrap}.button{display:inline-flex;justify-content:center;align-items:center;background:var(--turquoise);color:white;border:1px solid var(--turquoise);border-radius:3px;padding:14px 24px;cursor:pointer;min-height:50px;font-weight:600;font-size:.95rem}.button:hover{background:#275b5d}.quiet-button{border:0;background:transparent;padding:12px;color:var(--cocoa);text-decoration:underline;cursor:pointer}.status{font-size:.9rem;margin:14px 0 0}.status:empty{display:none}#clear-confirm{border-top:1px solid var(--line);margin-top:20px;padding-top:18px;font-size:.9rem}#clear-confirm .journal-actions{margin-top:0}#clear-confirm p{margin-bottom:8px}@media(max-width:280px){.button{padding:13px 17px}}
+</style></head><body>
+<form id="reflection-form"><label for="notice">What did you notice?</label><textarea id="notice" name="notice" rows="2" placeholder="A small detail from today…" maxlength="3000"></textarea><label for="name">What would you name the blessing?</label><input id="name" name="name" placeholder="Care, companionship, rest…" maxlength="300"><label for="remember">What do you want to remember?</label><textarea id="remember" name="remember" rows="3" placeholder="Why this moment mattered…" maxlength="3000"></textarea><label for="respond">A prayer, a thank-you, or what feels unresolved</label><textarea id="respond" name="respond" rows="2" placeholder="There is room for the whole day." maxlength="3000"></textarea><div class="journal-actions"><button type="submit" class="button">Keep my reflection</button><button type="button" id="clear" class="quiet-button">Clear</button></div><div id="clear-confirm" hidden><p>Clear this reflection? Download a copy first if you want to keep it.</p><div class="journal-actions"><button type="button" id="cancel-clear" class="quiet-button">Keep writing</button><button type="button" id="confirm-clear" class="quiet-button">Clear reflection</button></div></div><p class="status" id="status" role="status" aria-live="polite"></p></form>
+<script>
+'use strict';
+const form = document.querySelector('#reflection-form');
+const status = document.querySelector('#status');
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const fields = [...form.querySelectorAll('input, textarea')];
+  if (!fields.some(field => field.value.trim())) {
+    status.textContent = 'Start with one small detail before keeping your reflection.';
+    fields[0].focus();
+    return;
+  }
+  const labels = ['NOTICE', 'NAME', 'REMEMBER', 'RESPOND'];
+  const content = 'TODAY’S LOVELIEST THOUGHT\n' + new Date().toLocaleDateString() + '\n\n' + fields.map((field, i) => labels[i] + '\n' + field.value.trim()).join('\n\n');
+  const url = URL.createObjectURL(new Blob([content], {type: 'text/plain;charset=utf-8'}));
+  const link = document.createElement('a');
+  link.href = url; link.download = 'my-loveliest-thought.txt';
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  status.textContent = 'Your reflection is ready to download. Keep it somewhere meaningful.';
+});
+const clearConfirm = document.querySelector('#clear-confirm');
+function clearReflection() {
+  form.reset();
+  clearConfirm.hidden = true;
+  status.textContent = 'Your reflection has been cleared.';
+  document.querySelector('#notice').focus();
+}
+document.querySelector('#clear').addEventListener('click', () => {
+  if (![...form.querySelectorAll('input, textarea')].some(field => field.value.trim())) {
+    clearReflection();
+    return;
+  }
+  clearConfirm.hidden = false;
+  document.querySelector('#cancel-clear').focus();
+});
+document.querySelector('#cancel-clear').addEventListener('click', () => {
+  clearConfirm.hidden = true;
+  document.querySelector('#clear').focus();
+});
+document.querySelector('#confirm-clear').addEventListener('click', clearReflection);
+
+// Send only a numeric layout height. Never send fields, text, or download data.
+function reportHeight() {
+  parent.postMessage({type: 'tlt-reflection-height', height: Math.ceil(document.body.getBoundingClientRect().height)}, '*');
+}
+new ResizeObserver(reportHeight).observe(document.body);
+window.addEventListener('message', event => {
+  if (event.source === parent && event.data === 'tlt-reflection-size-request') reportHeight();
+});
+reportHeight();
+
+</script></body></html>

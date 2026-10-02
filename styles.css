@@ -30,3 +30,7 @@
 @media(max-width:580px){.journal-signup-frame{height:620px}}
 @media(max-width:480px){.journal-signup-frame{height:660px}.journal-preview{padding-left:12px;padding-right:12px}}
 @media(max-width:360px){.journal-signup-frame{height:740px}}
+
+/* The outer journal panel retains its original padding, border, and colors. */
+.reflection-frame{display:block;width:100%;height:660px;border:0;background:var(--paper)}
+.privacy-note{margin-top:24px;font-size:.85rem;line-height:1.7}.privacy-note summary{cursor:pointer;max-width:max-content}.privacy-note p{margin:16px 0 0;max-width:850px}.privacy-note a{font-size:inherit}
