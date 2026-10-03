@@ -12,7 +12,7 @@ Open `index.html`, or run `python3 -m http.server 8000` from this folder.
 - `styles.css`: responsive brand styling.
 - `script.js`: video controls and restricted iframe height listeners.
 - `reflection.html`: isolated private reflection form, local download, and clearing controls.
-- `analytics.js`: production-only GA4 configuration.
+- `analytics.js`: production-only Google Tag Manager loader and privacy defaults.
 - `assets/`: supplied artwork, video, sharing image, and icons.
 
 ## Private reflections
@@ -54,9 +54,11 @@ The October 1, 2026 supplied 15-second video plays once, muted, without a visibl
 
 `assets/og-image.jpg` is the 1200 × 630 sharing card. Canonical, Open Graph, sitemap, and robots settings use the live domain.
 
-## Google Analytics — October 2, 2026
+## Google Analytics and Tag Manager — October 3, 2026
 
-GA4 measurement ID `G-79B3TMK0CM` comes from Daniel's web-stream setup screenshots (stream `15941366799`). `analytics.js` initializes one direct Google tag only on `todaysloveliestthought.com` and `www.todaysloveliestthought.com`; local and Cloudflare preview hosts do not report traffic. There is no GTM container or duplicate GA4 tag.
+GA4 measurement ID `G-79B3TMK0CM` uses stream `15941366799`. Google Tag Manager container `GTM-TS4MQ72R` owns the single native Google tag, named `TLT | Google tag | GA4`, firing on `Initialization - All Pages`. Its configuration disables Google signals and advertising personalization. Do not add a direct GA4 loader or another configuration tag for this property.
+
+`analytics.js` queues global privacy defaults before loading the GTM container, only on `todaysloveliestthought.com` and `www.todaysloveliestthought.com`. Local and Cloudflare preview hosts do not report traffic. The loader is included once in the page head. There is intentionally no noscript tracking iframe: the GA4 tag requires JavaScript, and the hostname/privacy controls must run before tracking starts. No tag is loaded in `reflection.html`.
 
 Google signals and advertising personalization are disabled. The reported page URL and referrer omit query strings and fragments. Source, medium, campaign, content, and term can be supplied only as short URL-safe UTM labels; do not put personal information into campaign labels. No reflection fields, contact fields, user IDs, enhanced conversion data, or custom lead events are sent by our code. The homepage's Privacy disclosure describes the data flow.
 
