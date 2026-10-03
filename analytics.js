@@ -4,7 +4,7 @@
 (() => {
   if (!['todaysloveliestthought.com', 'www.todaysloveliestthought.com'].includes(location.hostname)) return;
 
-  const measurementId = 'G-79B3TMK0CM';
+  const containerId = 'GTM-TS4MQ72R';
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer.push(arguments); };
 
@@ -29,10 +29,12 @@
     }
   }
 
-  window.gtag('js', new Date());
-  window.gtag('config', measurementId, config);
+  // Queue privacy defaults before GTM starts. The container owns the single
+  // Google tag; do not add a second gtag('config', ...) call here.
+  window.gtag('set', config);
+  window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
   const tag = document.createElement('script');
   tag.async = true;
-  tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+  tag.src = 'https://www.googletagmanager.com/gtm.js?id=' + containerId;
   document.head.append(tag);
 })();
